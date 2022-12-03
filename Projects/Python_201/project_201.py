@@ -12,16 +12,22 @@ pokemon = pokemon.lower()
 url = f"https://pokeapi.co/api/v2/pokemon/{pokemon}"
 
 req = requests.get(url)
-data = req.json()
-
-print(f"Pokemon name is {data['name']}")
-print("Abilities:")
-
-for ability in data["abilities"]:
-    print(ability['ability']['name'])
-    print("List of pokemon with this ability:")
-    req = requests.get(ability['ability']['url'])
-    list = req.json()
-    for poke in list['pokemon']:
-        print(poke['pokemon']['name'])
-    print("\n")
+if req.status_code == 200:
+    data = req.json()
+    
+    print(f"Pokemon name is {data['name']}\n")
+    x = 0
+    y = 0
+    for ability in data["abilities"]:
+        x += 1
+        print(f"{x}. Ability: {ability['ability']['name']}\n")
+        print("List of pokemon with this ability:")
+        req = requests.get(ability['ability']['url'])
+        list = req.json()
+        for poke in list['pokemon']:
+            y += 1
+            print(f"{y}. {poke['pokemon']['name']}")
+        y = 0
+        print("\n")
+else:
+    print("Pokemon does not exist! Try again.")
