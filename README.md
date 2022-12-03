@@ -1,4 +1,4 @@
-# Rock-Paper-Scissors game
+My projects on Udemy
 
 Project 101 on Udemy FullStack Web Development course.
 
